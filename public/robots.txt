@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://grygar.me/sitemap.xml
+Host: https://grygar.me

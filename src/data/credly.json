@@ -1,0 +1,32 @@
+{
+  "source": "https://www.credly.com/users/jakub-grygar/badges.json",
+  "badges": [
+    {
+      "id": "9640e791-d928-4f46-8309-59896a902975",
+      "name": "Networking Basics",
+      "issuer": "Cisco",
+      "issuedAt": "2026-06-02",
+      "image": "/badges/networking-basics.png",
+      "verifyUrl": "https://www.credly.com/badges/9640e791-d928-4f46-8309-59896a902975",
+      "description": "Cisco verifies the earner of this badge successfully completed the Networking Basics course and achieved this student level credential."
+    },
+    {
+      "id": "b40f0721-a7f0-4d71-a9ff-8eed42b0b8a5",
+      "name": "Introduction to Cybersecurity",
+      "issuer": "Cisco",
+      "issuedAt": "2026-05-24",
+      "image": "/badges/introduction-to-cybersecurity.png",
+      "verifyUrl": "https://www.credly.com/badges/b40f0721-a7f0-4d71-a9ff-8eed42b0b8a5",
+      "description": "Cisco verifies the earner of this badge successfully completed the Introduction to Cybersecurity course."
+    },
+    {
+      "id": "d5178847-389e-474d-9f4b-8bb335a83c8e",
+      "name": "Introduction to Modern AI",
+      "issuer": "Cisco",
+      "issuedAt": "2026-05-24",
+      "image": "/badges/introduction-to-modern-ai.png",
+      "verifyUrl": "https://www.credly.com/badges/d5178847-389e-474d-9f4b-8bb335a83c8e",
+      "description": "Cisco verifies the earner of this badge successfully completed the Introduction to Modern AI course."
+    }
+  ]
+}

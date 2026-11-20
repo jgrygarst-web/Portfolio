@@ -1,0 +1,330 @@
+@import "tailwindcss";
+
+/* Dark mode je řízený třídou `dark` na <html>, ne jen systémovým nastavením. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
+    monospace;
+
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+}
+
+:root {
+  --page: #ffffff;
+  --surface: #ffffff;
+  --fg: #141419;
+  --accent: #2f62e8;
+  --accent-soft: #eef2ff;
+  --body: #3a3a44;
+  --muted: #63636e;
+  --line: #e4e4e8;
+  --strip-a: #6ee7b7;
+  --strip-b: #c4b5fd;
+  color-scheme: light;
+}
+
+.dark {
+  --page: #0b0b0d;
+  --surface: #141418;
+  --fg: #f4f4f6;
+  --accent: #8fb3ff;
+  --accent-soft: rgba(143, 179, 255, 0.12);
+  --body: #c9c9d1;
+  --muted: #9ea0a8;
+  --line: #292930;
+  --strip-a: #34d399;
+  --strip-b: #a78bfa;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--page);
+    background-image:
+      radial-gradient(
+        38rem 26rem at 12% 4%,
+        color-mix(in srgb, #a7f3d0 55%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        34rem 24rem at 88% 8%,
+        color-mix(in srgb, #ddd6fe 55%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        42rem 28rem at 52% 0%,
+        color-mix(in srgb, #bfdbfe 40%, transparent),
+        transparent 72%
+      );
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--body);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--fg);
+    color: var(--page);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 3px;
+  }
+
+  section[id] {
+    scroll-margin-top: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    section[id] {
+      scroll-margin-top: 5.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .wrap {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .wrap {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background-color: var(--surface);
+    padding: 1.25rem;
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.05),
+      0 10px 26px -20px rgb(0 0 0 / 0.35);
+    transition:
+      transform 220ms ease,
+      border-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background-image: linear-gradient(90deg, var(--strip-a), var(--strip-b));
+    opacity: 0.75;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+    box-shadow: 0 18px 32px -26px
+      color-mix(in srgb, var(--fg) 70%, transparent);
+  }
+
+  .card:focus-within {
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  }
+
+  @media (min-width: 640px) {
+    .card {
+      padding: 1.5rem;
+    }
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 9999px;
+    background-color: var(--page);
+    padding: 0.1rem 0.55rem;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .nav-link {
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -5px;
+    height: 1.5px;
+    border-radius: 2px;
+    background-color: var(--fg);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms ease;
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0 1px;
+    transition: background-size 220ms ease;
+  }
+
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.62rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.2;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease;
+  }
+
+  .btn-solid {
+    background-color: var(--fg);
+    color: var(--page);
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  .btn-solid:hover {
+    opacity: 0.88;
+  }
+
+  .btn-outline {
+    border: 1px solid var(--line);
+    color: var(--fg);
+  }
+
+  .btn-outline:hover {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+    background-color: var(--accent-soft);
+  }
+}
+
+
+/* Jemný pruh nahoře, který ukazuje, jak daleko je člověk na stránce. */
+.scroll-progress {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 60;
+  height: 2px;
+  pointer-events: none;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background-color: var(--accent);
+  transition: transform 90ms linear;
+}
+
+/* Nástup hero obsahu při načtení. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise-in {
+    animation: rise-in 620ms cubic-bezier(0.22, 0.8, 0.24, 1) both;
+  }
+
+  .rise-in-1 {
+    animation-delay: 80ms;
+  }
+
+  .rise-in-2 {
+    animation-delay: 180ms;
+  }
+
+  .rise-in-3 {
+    animation-delay: 280ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .btn,
+  .link-underline,
+  .nav-link::after,
+  .scroll-progress-bar {
+    transition: none;
+  }
+
+  .card:hover,
+  .btn:hover {
+    transform: none;
+  }
+}
+
+
+html.dark body {
+  background-image:
+    radial-gradient(38rem 26rem at 12% 4%, rgb(16 185 129 / 0.14), transparent 70%),
+    radial-gradient(34rem 24rem at 88% 8%, rgb(139 92 246 / 0.15), transparent 70%),
+    radial-gradient(42rem 28rem at 52% 0%, rgb(56 189 248 / 0.09), transparent 72%);
+}
